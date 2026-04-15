@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Nazlı 💗</title>
+
+<style>
+body {
+  margin: 0;
+  overflow: hidden;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* YOUR IMAGE BACKGROUND */
+.bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: url('couple.jpg') center/cover no-repeat;
+  filter: blur(6px) brightness(0.75);
+  z-index: -2;
+}
+
+/* Cinematic overlay */
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, transparent 50%, rgba(0,0,0,0.4)),
+              linear-gradient(180deg, rgba(255,192,203,0.2), transparent);
+  z-index: -1;
+}
+
+/* Main name */
+.name {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 64px;
+  color: #ff4d88;
+  text-shadow: 0 0 25px #ff4d88, 0 0 60px #ff80aa;
+  animation: glow 3s ease-in-out infinite alternate;
+}
+
+/* Glow animation */
+@keyframes glow {
+  from { text-shadow: 0 0 20px #ff4d88, 0 0 40px #ff80aa; }
+  to { text-shadow: 0 0 40px #ff1a66, 0 0 80px #ff99cc; }
+}
+
+/* Floating names (UPDATED SIZE) */
+.floatName {
+  position: absolute;
+  font-size: 36px;
+  color: rgba(255, 77, 136, 0.4);
+  animation: floatUp linear forwards;
+}
+
+/* Bubbles (UPDATED SIZE) */
+.bubble {
+  position: absolute;
+  padding: 18px 28px;
+  border-radius: 50px;
+  font-size: 24px;
+  color: white;
+  background: rgba(255, 105, 180, 0.25);
+  backdrop-filter: blur(10px);
+  animation: floatUp linear forwards;
+}
+
+/* Hearts */
+.heart {
+  position: absolute;
+  font-size: 18px;
+  animation: explode 1s ease-out forwards;
+}
+
+/* Floating animation */
+@keyframes floatUp {
+  0% { transform: translateY(100vh); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translateY(-10vh); opacity: 0; }
+}
+
+/* Explosion animation */
+@keyframes explode {
+  from {
+    transform: scale(0.5) translate(0,0);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1.5) translate(var(--x), var(--y));
+    opacity: 0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg"></div>
+<div class="overlay"></div>
+
+<div class="name">𝒩𝒶𝓏𝓁𝒾 💗</div>
+
+<script>
+
+const messages = [
+  "I love you 💗",
+  "My love ❤️",
+  "Forever us 💞",
+  "Only you 💕",
+  "Miss you 🥺"
+];
+
+/* Floating name */
+function createFloatingName() {
+  const el = document.createElement("div");
+  el.className = "floatName";
+  el.innerText = "𝒩𝒶𝓏𝓁𝒾 💗";
+
+  el.style.left = Math.random() * 90 + "vw";
+  el.style.animationDuration = (8 + Math.random() * 4) + "s";
+
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 12000);
+}
+
+/* Bubble */
+function createBubble() {
+  const el = document.createElement("div");
+  el.className = "bubble";
+  el.innerText = messages[Math.floor(Math.random() * messages.length)];
+
+  el.style.left = Math.random() * 80 + "vw";
+  el.style.animationDuration = (9 + Math.random() * 3) + "s";
+
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 12000);
+}
+
+/* HEART EXPLOSION */
+function createExplosion(x, y) {
+  for (let i = 0; i < 12; i++) {
+    const h = document.createElement("div");
+    h.className = "heart";
+    h.innerText = ["💗","💖","💕","💘"][Math.floor(Math.random()*4)];
+
+    const angle = Math.random() * 2 * Math.PI;
+    const distance = 100 + Math.random() * 80;
+
+    h.style.setProperty('--x', Math.cos(angle) * distance + 'px');
+    h.style.setProperty('--y', Math.sin(angle) * distance + 'px');
+
+    h.style.left = x + "px";
+    h.style.top = y + "px";
+
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 1000);
+  }
+}
+
+/* Click / touch */
+document.addEventListener("click", (e) => {
+  createExplosion(e.clientX, e.clientY);
+});
+
+document.addEventListener("touchstart", (e) => {
+  const t = e.touches[0];
+  createExplosion(t.clientX, t.clientY);
+});
+
+/* Intervals */
+setInterval(createFloatingName, 1200);
+setInterval(createBubble, 1000);
+
+</script>
+
+</body>
+</html>
